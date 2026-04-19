@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 11:46:21 by mtawil            #+#    #+#             */
-/*   Updated: 2026/04/14 13:24:29 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/04/19 17:11:12 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,12 @@ private:
     std::string darkset_secret;
 
 public:
-    Contact();
-
-    // Setter
     void SetFirstName(std::string fn);
-    void SetLastName(std::string fn);
-    void SetNickName(std::string fn);
-    void SetPhoneNumber(std::string fn);
-    void SetSecret(std::string fn);
+    void SetLastName(std::string ln);
+    void SetNickName(std::string nn);
+    void SetPhoneNumber(std::string pn);
+    void SetSecret(std::string ds);
 
-    // Getters
     std::string getFirstName() const;
     std::string getLastName() const;
     std::string getNickname() const;
