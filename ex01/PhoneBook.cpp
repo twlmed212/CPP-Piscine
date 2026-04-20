@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 11:46:25 by mtawil            #+#    #+#             */
-/*   Updated: 2026/04/19 17:37:51 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/04/20 16:08:20 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,12 @@
 #include <iostream>
 #include <iomanip>
 
-
-// Truncate to 9 chars + dot if too long, then print right-aligned in 10
-void PhoneBook::printField(std::string field) const
-{
-    if (field.length() > 10)
-        field = field.substr(0, 9) + ".";
-    std::cout << std::setw(10) << std::right << field << "|";
-}
-
-static std::string getField(const std::string &prompt)
+static std::string getField(std::string s)
 {
     std::string input;
     while (true)
     {
-        std::cout << prompt;
+        std::cout << s;
         std::getline(std::cin, input);
         if (!input.empty())
             return input;
@@ -36,23 +27,30 @@ static std::string getField(const std::string &prompt)
     }
 }
 
+void PhoneBook::print(std::string s)
+{
+    if (s.length() > 10)
+        s = s.substr(0, 9) + ".";
+    std::cout << std::setw(10) << std::right << s << "|";
+}
+
 void PhoneBook::addContact()
 {
-    int idx = _oldest % 8;
-    _contacts[idx].setFirstName(getField("First name: "));
-    _contacts[idx].setLastName(getField("Last name: "));
-    _contacts[idx].setNickname(getField("Nickname: "));
-    _contacts[idx].setPhoneNumber(getField("Phone number: "));
-    _contacts[idx].setDarkestSecret(getField("Darkest secret: "));
-    _oldest++;
-    if (_count < 8)
-        _count++;
+    int idx = oldest % 8;
+    contacts[idx].setFirstName(getField("First name: "));
+    contacts[idx].setLastName(getField("Last name: "));
+    contacts[idx].setNickName(getField("Nickname: "));
+    contacts[idx].setPhoneNumber(getField("Phone number: "));
+    contacts[idx].setDarkestSecret(getField("Darkest secret: "));
+    oldest++;
+    if (count <= 7)
+        count++;
     std::cout << "Contact saved!\n";
 }
 
-void PhoneBook::searchContact() const
+void PhoneBook::searchContact() 
 {
-    if (_count == 0)
+    if (count == 0)
     {
         std::cout << "PhoneBook is empty.\n";
         return;
@@ -61,12 +59,12 @@ void PhoneBook::searchContact() const
               << std::setw(10) << "first name" << "|"
               << std::setw(10) << "last name" << "|"
               << std::setw(10) << "nickname" << "|" << "\n";
-    for (int i = 0; i < _count; i++)
+    for (int i = 0; i < count; i++)
     {
         std::cout << std::setw(10) << i << "|";
-        printField(_contacts[i].getFirstName());
-        printField(_contacts[i].getLastName());
-        printField(_contacts[i].getNickname());
+        print(contacts[i].getFirstName());
+        print(contacts[i].getLastName());
+        print(contacts[i].getNickname());
         std::cout << "\n";
     }
     std::cout << "Enter index: ";
@@ -78,14 +76,14 @@ void PhoneBook::searchContact() const
         return;
     }
     int idx = line[0] - '0';
-    if (idx >= _count)
+    if (idx >= count)
     {
         std::cout << "Index out of range.\n";
         return;
     }
-    std::cout << "First name:     " << _contacts[idx].getFirstName() << "\n"
-              << "Last name:      " << _contacts[idx].getLastName() << "\n"
-              << "Nickname:       " << _contacts[idx].getNickname() << "\n"
-              << "Phone number:   " << _contacts[idx].getPhoneNumber() << "\n"
-              << "Darkest secret: " << _contacts[idx].getDarkestSecret() << "\n";
+    std::cout << "First name:     " << contacts[idx].getFirstName() << "\n"
+              << "Last name:      " << contacts[idx].getLastName() << "\n"
+              << "Nickname:       " << contacts[idx].getNickname() << "\n"
+              << "Phone number:   " << contacts[idx].getPhoneNumber() << "\n"
+              << "Darkest secret: " << contacts[idx].getDarkestSecret() << "\n";
 }

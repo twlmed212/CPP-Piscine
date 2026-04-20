@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 11:46:25 by mtawil            #+#    #+#             */
-/*   Updated: 2026/04/19 17:34:13 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/04/20 15:32:52 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void Contact::setLastName(std::string s)
 	last_name = s;
 
 }
-void Contact::setNickname(std::string s)
+void Contact::setNickName(std::string s)
 {
 	nickname = s;
 }
