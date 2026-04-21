@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 11:46:25 by mtawil            #+#    #+#             */
-/*   Updated: 2026/04/20 16:08:20 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/04/20 21:59:56 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <iostream>
 #include <iomanip>
 
-static std::string getField(std::string s)
+std::string PhoneBook::getField(std::string s)
 {
     std::string input;
     while (true)
@@ -31,7 +31,7 @@ void PhoneBook::print(std::string s)
 {
     if (s.length() > 10)
         s = s.substr(0, 9) + ".";
-    std::cout << std::setw(10) << std::right << s << "|";
+    std::cout << std::setw(10) << s << "|";
 }
 
 void PhoneBook::addContact()
