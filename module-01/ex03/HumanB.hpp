@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 10:19:13 by mtawil            #+#    #+#             */
-/*   Updated: 2026/04/24 12:29:22 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/04/24 18:00:01 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ private:
     Weapon* weapon;
 public:
     HumanB(std::string nm);
-    void setWeapon(Weapon wpn);
+    void setWeapon(Weapon& wpn);
     void attack();
 };
 
