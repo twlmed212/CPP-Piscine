@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 16:02:59 by mtawil            #+#    #+#             */
-/*   Updated: 2026/04/25 16:36:46 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/04/25 16:42:48 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ Data::Data(char **av) : origianl_file(av[1]), occurance_str(av[2]), replacment_s
     replaced_file = origianl_file + ".replace";
 }
 
-void Data::replace()
+void Data::replace(std::string s)
 {
     size_t index = 0;
     
+    result = s;
     if (!occurance_str.empty())
     {
         while ((index = result.find(occurance_str, index)) != std::string::npos)
@@ -38,3 +39,5 @@ const char* Data::getOrigianlF(){
 const char* Data::getReplacedF(){
     return replaced_file.c_str();
 }
+
+std::string Data::getResult(){return result;}

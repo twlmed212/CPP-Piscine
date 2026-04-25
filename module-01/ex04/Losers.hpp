@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 15:58:59 by mtawil            #+#    #+#             */
-/*   Updated: 2026/04/25 16:36:44 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/04/25 16:42:45 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ class Data {
         std::string occurance_str;
         std::string replacment_str;
         std::string replaced_file;
-    public:
         std::string result;
+    
+    public:
         Data(char **av);
-        void replace();
+        void replace(std::string s);
         const char* getOrigianlF();
         const char* getReplacedF();
+        std::string getResult();
 };
 
 #endif

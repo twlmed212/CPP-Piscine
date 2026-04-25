@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:34:38 by mtawil            #+#    #+#             */
-/*   Updated: 2026/04/25 16:37:25 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/04/25 16:42:02 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int main(int ac, char **av)
 		std::string text;
 		while (getline(origina_file, text))
 		{
-			data.replace();
-			newFile << data.result;
+			data.replace(text);
+			newFile << data.getResult();
 			if (!origina_file.eof()){
 				newFile << std::endl;
 			} 
