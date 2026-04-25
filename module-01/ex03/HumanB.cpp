@@ -6,13 +6,13 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 10:19:11 by mtawil            #+#    #+#             */
-/*   Updated: 2026/04/24 18:00:33 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/04/25 04:52:17 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HumanB.hpp"
 
-HumanB::HumanB(std::string nm) : name(nm) {};
+HumanB::HumanB(std::string nm) : name(nm), weapon(NULL){};
 
 void HumanB::attack() {
     if (weapon != NULL) {
