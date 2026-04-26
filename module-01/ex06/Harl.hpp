@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 14:29:11 by mtawil            #+#    #+#             */
-/*   Updated: 2026/04/26 21:40:29 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/04/26 21:55:08 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ class Harl {
         void error( void );
     public:
         Harl();
-        void complain( int level );
+        void complain( std::string level );
 };
 int getType(std::string s);
 

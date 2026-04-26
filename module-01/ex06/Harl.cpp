@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 14:29:13 by mtawil            #+#    #+#             */
-/*   Updated: 2026/04/26 21:48:18 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/04/26 21:57:33 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void Harl::error( void ) {
                 << std::endl;
 }
 
-void Harl::complain(int level ){
+void Harl::complain( std::string level ){
+    std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
     void (Harl::*funcs[])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 
-    for (int i = level; i < 4; i++) {
-        (this->*funcs[i])();
-        
-    }
+    for (int i = 0; i < 4; i++)
+        if (level == levels[i])
+            (this->*funcs[i])();
 }
 
 int getType(std::string s){
