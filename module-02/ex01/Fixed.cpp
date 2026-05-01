@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 11:47:41 by mtawil            #+#    #+#             */
-/*   Updated: 2026/05/01 12:13:11 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/05/01 17:18:26 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ Fixed::Fixed() : raw_bits(0){
     std::cout << "Default constructor called" << std::endl;
 }
 
+Fixed::Fixed(const& int n) : raw_bits(n) {}
+Fixed::Fixed(const& float n) : raw_bits(n * fractional) {}
+        
 Fixed::Fixed(const Fixed& src) {
     std::cout << "Copy constructor called" << std::endl;
     *this = src;
@@ -32,6 +35,7 @@ Fixed& Fixed::operator=(const Fixed& other) {
 Fixed::~Fixed() {
     std::cout << "Destructor called" << std::endl;
 }
+
 int Fixed::getRawBits(void) const {
     std::cout << "getRawBits member function called" << std::endl;
     return raw_bits;    
@@ -39,4 +43,11 @@ int Fixed::getRawBits(void) const {
 void Fixed::setRawBits(int const raw) {
     std::cout << "setRawBits member function called" << std::endl;
     raw_bits = raw;
+}
+
+float Fixed::toFloat(void) const {
+    return (this->raw_bits / fractional);
+}
+int Fixed::toInt(void) const {
+    return (raw_bits);
 }
