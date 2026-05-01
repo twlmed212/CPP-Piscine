@@ -20,7 +20,7 @@ int main(int ac, char **av)
 		std::cout << "[USAGE EX:]\n./losers [fileName] [occuranceStr] [replacedStr]" << std::endl;
 		return (1);
 	}
-	Data data(av);
+	Data data(av[1], av[2], av[3]);
 
 	std::ifstream origina_file(data.getOriginalF(), std::ios::in);
 	std::ofstream newFile(data.getReplacedF(), std::ios::out);

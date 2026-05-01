@@ -25,7 +25,7 @@ class Data {
         std::string result;
     
     public:
-        Data(char **av);
+        Data(std::string file, std::string s1, std::string s2);
         void replace(std::string s);
         const char* getOriginalF();
         const char* getReplacedF();

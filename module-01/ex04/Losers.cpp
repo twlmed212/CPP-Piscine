@@ -12,7 +12,8 @@
 
 #include "Losers.hpp"
 
-Data::Data(char **av) : original(av[1]), occurrence(av[2]), replacement(av[3])
+        
+Data::Data(std::string file, std::string s1, std::string s2) : original(file), occurrence(s1), replacement(s2)
 {
     replaced_file = original + ".replace";
 }
