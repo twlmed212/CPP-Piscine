@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 11:47:40 by mtawil            #+#    #+#             */
-/*   Updated: 2026/05/02 12:54:42 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/05/02 13:00:21 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,21 @@ class Fixed {
         bool operator==(const Fixed&other) const ;
         bool operator!=(const Fixed&other) const ;
 
-        Fixed& operator+(const Fixed&other);
-        Fixed& operator-(const Fixed&other);
-        Fixed& operator*(const Fixed&other);
-        Fixed& operator/(const Fixed&other);
+        Fixed operator+(const Fixed&other) const;
+        Fixed operator-(const Fixed&other) const;
+        Fixed operator*(const Fixed&other) const;
+        Fixed operator/(const Fixed&other) const;
         
         Fixed& operator++(void);
         Fixed operator++(int n);
+        Fixed& operator--(void);
+        Fixed operator--(int n);
 
-        Fixed& min(Fixed& a, Fixed& b);
-        const Fixed& min(const Fixed& a, const Fixed& b);
+        static Fixed& min(Fixed& a, Fixed& b);
+        static const Fixed& min(const Fixed& a, const Fixed& b);
 
-        Fixed& max(Fixed& a, Fixed& b);
-        const Fixed& max(const Fixed& a, const Fixed& b);
+        static Fixed& max(Fixed& a, Fixed& b);
+        static const Fixed& max(const Fixed& a, const Fixed& b);
         
         ~Fixed();
         
