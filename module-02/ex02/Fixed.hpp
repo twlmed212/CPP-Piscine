@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 11:47:40 by mtawil            #+#    #+#             */
-/*   Updated: 2026/05/02 13:00:21 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/05/03 15:39:06 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ class Fixed {
         Fixed(const int& n);
         Fixed(const float& n);
         Fixed(const Fixed& src);
+        
         Fixed& operator=(const Fixed& other);
         
         bool operator>(const Fixed&other) const ;
