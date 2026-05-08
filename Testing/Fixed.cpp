@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 11:47:41 by mtawil            #+#    #+#             */
-/*   Updated: 2026/05/05 21:14:04 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/05/08 21:06:01 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int Fixed::getRawBits(void) const {
     return raw_bits;    
 }
 void Fixed::setRawBits(int const raw) {
+    this->MakeSound();
     std::cout << "setRawBits member function called" << std::endl;
     raw_bits = raw;
 }
@@ -131,4 +132,15 @@ Fixed& Fixed::max(Fixed& a, Fixed& b) {
 
 const Fixed& Fixed::max(const Fixed& a, const Fixed& b) {
     return (a > b) ? a : b;
+}
+
+void Sounds::MakeSound() {
+    std::cout << "Original" <<std::endl;
+}
+
+Sounds::Sounds() {
+    std::cout << "Sounds Create" << std::endl;
+}
+Sounds::~Sounds() {
+    std::cout << "Sounds Destruct Called" << std::endl;
 }

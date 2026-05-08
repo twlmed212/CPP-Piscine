@@ -3,8 +3,6 @@
 
 int main(void) {
     Fixed a(10);   // line 1
-    Fixed c;
-    c = a;
-    std::cout << c << std::endl;
+    a.setRawBits(2);
     return 0;
 }

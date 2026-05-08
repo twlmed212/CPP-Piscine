@@ -6,7 +6,7 @@
 /*   By: mtawil <mtawil@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 11:47:40 by mtawil            #+#    #+#             */
-/*   Updated: 2026/05/05 21:14:22 by mtawil           ###   ########.fr       */
+/*   Updated: 2026/05/08 21:05:42 by mtawil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,14 @@
 # include <cmath>
 
 
-class Fixed {
+class Sounds {
+    protected:
+        void MakeSound();
+    public:
+        Sounds();
+        ~Sounds();
+};
+class Fixed : public Sounds{
     private:
         int                 raw_bits;
         static const int    fractional = 8;
@@ -25,10 +32,9 @@ class Fixed {
         Fixed();
         Fixed(const int& n);
         Fixed(const float& n);
-        Fixed(const Fixed src);
+        Fixed(const  Fixed& src);
         
         Fixed& operator=(const Fixed& other);
-        
         bool operator>(const Fixed&other) const ;
         bool operator<(const Fixed&other) const ;
         bool operator>=(const Fixed&other) const ;
