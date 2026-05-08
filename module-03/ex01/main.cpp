@@ -1,9 +1,7 @@
-#include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 int main() {
-    ClapTrap med = ClapTrap("Mohamed");
-    med.attack("Said");
-    med.takeDamage(2);
-    med.beRepaired(2);
-    return (0);
-}
+    ScavTrap s("Said");   // should show ClapTrap created THEN ScavTrap created
+    s.attack("target");
+    s.guardGate();
+}                         // should show ScavTrap destroyed THEN ClapTrap destroyed

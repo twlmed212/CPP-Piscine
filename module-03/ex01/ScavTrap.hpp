@@ -5,12 +5,6 @@
 # include "ClapTrap.hpp"
 
 class ScavTrap : public ClapTrap{
-    private:
-        std::string _name;
-        int _hit_points;
-        int _energy_points;
-        int _attack_damage;
-
     public:
         ScavTrap();
         ScavTrap(std::string n);

@@ -19,7 +19,7 @@ ScavTrap::~ScavTrap() {
     std::cout << "ScavTrap " << _name << " has been destroyed!" << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& other) {
+ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
     std::cout << "Copy constructor called for ScavTrap!" << std::endl;
     *this = other;
 }
@@ -50,5 +50,6 @@ void ScavTrap::attack(const std::string& target){
 }
 
 void  ScavTrap::guardGate() {
-
+    std::cout << "ScavTrap " << _name << " is now in Gatekeeper mode!" <<
+                std::endl;
 }

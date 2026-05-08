@@ -23,10 +23,10 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
     std::cout << "Copy operator assignment called!" << std::endl;
 
     if (this != &other) {
-        this->_hit_points = other.getHitPoints();
-        this->_energy_points = other.getEnergyPoints();
-        this->_attack_damage = other.getAttackDamage();
-        this->_name = other.getName();
+        this->_hit_points = other._hit_points;
+        this->_energy_points = other._energy_points;
+        this->_attack_damage = other._attack_damage;
+        this->_name = other._name;
     }
     return *this;
 }
@@ -39,9 +39,6 @@ int ClapTrap::getEnergyPoints() const {
 }
 int ClapTrap::getAttackDamage() const {
     return (_attack_damage);
-}
-void ClapTrap::setName(std::string& name) {
-    _name = name;
 }
 std::string  ClapTrap::getName() const {
     return (this->_name);
@@ -72,7 +69,7 @@ void ClapTrap::takeDamage(unsigned int amount) {
 
 }
 void ClapTrap::beRepaired(unsigned int amount) {
-    if (!_hit_points ||_energy_points)
+    if (!_hit_points || !_energy_points)
         return;
     _energy_points -= 1;
     _hit_points += amount;
