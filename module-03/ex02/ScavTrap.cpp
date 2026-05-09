@@ -25,7 +25,7 @@ ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
 }
 
 ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
-    std::cout << "Copy assignment operator called!" << std::endl;
+    std::cout << "Copy assignment operator called for ScavTrap!" << std::endl;
 
     if (this != &other) {
         this->_hit_points = other._hit_points;
