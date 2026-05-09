@@ -2,14 +2,9 @@
 #define FRAGTRAP_HPP
 
 # include <iostream>
+# include "ClapTrap.hpp"
 
-class FragTrap {
-    protected:
-        std::string _name;
-        int _hit_points;
-        int _energy_points;
-        int _attack_damage;
-
+class FragTrap : public ClapTrap{
     public:
         FragTrap();
         FragTrap(std::string n);
@@ -17,14 +12,7 @@ class FragTrap {
         FragTrap& operator=(const FragTrap& other);
         ~FragTrap();
     
-        int getHitPoints() const;
-        int getEnergyPoints() const;
-        int getAttackDamage() const;
-        std::string getName() const;
-
-        void attack(const std::string& target);
-        void takeDamage(unsigned int amount);
-        void beRepaired(unsigned int amount);
+        void highFivesGuys(void);
 
 };
 
