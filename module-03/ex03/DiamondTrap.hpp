@@ -4,7 +4,7 @@
 # include "FragTrap.hpp"
 # include "ScavTrap.hpp"
 
-class DiamondTrap : public ScavTrap, public FragTrap{
+class DiamondTrap : public FragTrap, public ScavTrap{
     private:
         std::string _name;
     public:
@@ -15,6 +15,11 @@ class DiamondTrap : public ScavTrap, public FragTrap{
         ~DiamondTrap();
     
         void whoAmI(void);
+        void attack(const std::string& target);
 };
 
 #endif
+// • Hit points (FragTrap)
+// • Energy points (ScavTrap)
+// • Attack damage (FragTrap)
+// • attack() (ScavTrap)

@@ -1,26 +1,27 @@
 # include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap() : ClapTrap("Guest_clap_name"), ScavTrap("Guest"), FragTrap("Guest") {
+DiamondTrap::DiamondTrap() : ClapTrap("Guest_clap_name"), FragTrap("Guest"), ScavTrap("Guest") {
     std::cout << "DiamondTrap " << _name << " has been created!" << std::endl;
-    _hit_points = 100;
-    _energy_points = 50;
-    _attack_damage = 30;
     _name = "Guest";
+    _attack_damage = FragTrap::_attack_damage;
+    _energy_points = ScavTrap::_energy_points;
+    _hit_points = FragTrap::_hit_points;
+    _attack_damage = FragTrap::_attack_damage;
 }
 
-DiamondTrap::DiamondTrap(std::string n) : ClapTrap(n + "_clap_name"), ScavTrap(n), FragTrap(n), _name(n) {
+DiamondTrap::DiamondTrap(std::string n) : ClapTrap(n + "_clap_name"), FragTrap(n), ScavTrap(n), _name(n) {
     std::cout << "DiamondTrap " << _name << " has been created!" << std::endl;
-    _hit_points = 100;
-    _energy_points = 50;
-    _attack_damage = 30;
-    
+    _attack_damage = FragTrap::_attack_damage;
+    _energy_points = ScavTrap::_energy_points;
+    _hit_points = FragTrap::_hit_points;
+    _attack_damage = FragTrap::_attack_damage;
 }
 
 DiamondTrap::~DiamondTrap() {
     std::cout << "DiamondTrap " << _name << " has been destroyed!" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(const DiamondTrap& other) : ClapTrap(other), ScavTrap(other), FragTrap(other) {
+DiamondTrap::DiamondTrap(const DiamondTrap& other) : ClapTrap(other),  FragTrap(other), ScavTrap(other) {
     std::cout << "Copy constructor called for DiamondTrap!" << std::endl;
     *this = other;
 }
@@ -40,4 +41,8 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other) {
 void DiamondTrap::whoAmI() {
     std::cout << "DiamondTrap name: " << _name << std::endl;
     std::cout << "ClapTrap name: " << ClapTrap::_name << std::endl;
+}
+
+void DiamondTrap::attack(const std::string& target) {
+    ScavTrap::attack(target);
 }
