@@ -17,4 +17,5 @@ int main() {
     // Copy constructor test
     FragTrap f2(f);
     f2.attack("Mostapha");
+    return (0);
 }

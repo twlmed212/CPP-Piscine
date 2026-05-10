@@ -19,7 +19,3 @@ class DiamondTrap : public FragTrap, public ScavTrap{
 };
 
 #endif
-// • Hit points (FragTrap)
-// • Energy points (ScavTrap)
-// • Attack damage (FragTrap)
-// • attack() (ScavTrap)
