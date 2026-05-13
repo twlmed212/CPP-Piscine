@@ -1,8 +1,30 @@
 #include <iostream>
-#include "Fixed.hpp"
 
-int main(void) {
-    Fixed a(10);   // line 1
-    a.setRawBits(2);
-    return 0;
+class Animal {
+    public:
+    virtual void makeSound() const = 0;
+};
+
+class Cat : public Animal {
+    public:
+        int x = 1;
+        void makeSound() const
+        {
+            std::cout << "meaw" << std::endl;
+        }
+};
+
+class Dog : public Cat {
+    public:
+        int x = 2;
+        void makeSound() const
+        {
+            std::cout << "dog" << std::endl;
+        }
+        
+};
+
+int main() {
+    Dog *cat = new Dog();
+    cat->makeSound();
 }
