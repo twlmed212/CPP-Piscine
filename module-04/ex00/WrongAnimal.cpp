@@ -1,29 +1,32 @@
-#include "Animal.hpp"
+#include "WrongAnimal.hpp"
 
-// Implementation
-Animal::Animal() {
-    // Default constructor
+WrongAnimal::WrongAnimal() {
+   std::cout << "Calling WrongAnimal Defautl Constuctor" << std::endl;
 }
-Animal::Animal(std::string n) : type(n){
+WrongAnimal::WrongAnimal(std::string n) : type(n){
+   std::cout << "Calling WrongAnimal Parametrized Constuctor" << std::endl;
+}
+WrongAnimal::~WrongAnimal() {
+   std::cout << "Calling WrongAnimal Destructor" << std::endl;
+}
 
-}
-Animal::~Animal() {
-    // Destructor
-}
-
-Animal::Animal(const Animal& other) {
+WrongAnimal::WrongAnimal(const WrongAnimal& other) {
+   std::cout << "Calling Copy Constructor of WrongAnimal" << std::endl;
     *this = other;
 }
 
-Animal& Animal::operator=(const Animal& other) {
-    // Copy assignment
+WrongAnimal& WrongAnimal::operator=(const WrongAnimal& other) {
+   std::cout << "Calling Copy assigment operator of WrongAnimal" << std::endl;
     if (this != &other) {
         this->type = other.type;
     }
     return *this;
 }
 
-
-std::string Animal::getType() const {
+std::string WrongAnimal::getType() const {
     return this->type;
+}
+
+void WrongAnimal::makeSound() const{
+    std::cout << "WrongAnimal Blueprint Can't Make sound without an existing WrongAnimal..." << std::endl;
 }

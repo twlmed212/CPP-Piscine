@@ -1,23 +1,25 @@
-#include "Cat.hpp"
+#include "WrongCat.hpp"
 
-Cat::Cat() : Animal("Cat"){
-    // Default constructor
+WrongCat::WrongCat() : WrongAnimal("Cat"){
+   std::cout << "Calling WrongCat Defautl Constuctor" << std::endl;
 }
 
-Cat::Cat(std::string n){
+WrongCat::WrongCat(std::string n){
+   std::cout << "Calling WrongCat Parametrized Constuctor" << std::endl;
     type = n;
 }
 
-Cat::~Cat() {
-    // Destructor
+WrongCat::~WrongCat() {
+   std::cout << "Calling WrongCat  Destructor" << std::endl;
 }
 
-Cat::Cat(const Cat& other) : Animal(other) {
+WrongCat::WrongCat(const WrongCat& other) : WrongAnimal(other) {
+   std::cout << "Calling Copy Constructor of WrongCat" << std::endl;
     *this = other;
 }
 
-Cat& Cat::operator=(const Cat& other) {
-    // Copy assignment
+WrongCat& WrongCat::operator=(const WrongCat& other) {
+   std::cout << "Calling Copy assigment operator of WrongCat" << std::endl;
     if (this != &other) {
         this->type = other.type;
     }
@@ -25,10 +27,10 @@ Cat& Cat::operator=(const Cat& other) {
 }
 
 
-void Cat::makeSound() const{
+void WrongCat::makeSound() const{
     std::cout << "Meow Meow..." << std::endl;
 }
 
-std::string Cat::getType() const {
+std::string WrongCat::getType() const {
     return this->type;
 }
