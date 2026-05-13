@@ -23,10 +23,11 @@ WrongAnimal& WrongAnimal::operator=(const WrongAnimal& other) {
     return *this;
 }
 
-std::string WrongAnimal::getType() const {
-    return this->type;
+void WrongAnimal::makeSound() const{
+    std::cout << "Booooo.." << std::endl;
 }
 
-void WrongAnimal::makeSound() const{
-    std::cout << "WrongAnimal Blueprint Can't Make sound without an existing WrongAnimal..." << std::endl;
+
+std::string WrongAnimal::getType() const {
+    return this->type;
 }

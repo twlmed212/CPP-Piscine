@@ -29,7 +29,3 @@ Dog& Dog::operator=(const Dog& other) {
 void Dog::makeSound() const{
     std::cout << "Woof Woof..." << std::endl;
 }
-
-std::string Dog::getType() const{
-    return this->type;
-}
