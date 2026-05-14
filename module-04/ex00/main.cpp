@@ -18,9 +18,9 @@ int main()
     j->makeSound();    // Dog sound
     meta->makeSound(); // Animal sound
 
-    delete meta;
-    delete j;
     delete i;
+    delete j;
+    delete meta;
 
     std::cout << "\n--- WrongAnimal tests ---" << std::endl;
     const WrongAnimal* wMeta = new WrongAnimal();
@@ -29,8 +29,8 @@ int main()
     wMeta->makeSound();
     wCat->makeSound();
 
-    delete wMeta;
     delete wCat;
+    delete wMeta;
 
     return 0;
 }
