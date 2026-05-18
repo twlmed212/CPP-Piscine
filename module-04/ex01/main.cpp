@@ -7,20 +7,24 @@
 
 int main()
 {
-    std::cout << "--- Animal tests ---" << std::endl;
-     Animal* meta = new Animal[10];
+    std::cout << "--- Brain Testing ---" << std::endl;
+    Animal* animal[10];
+    std::cout << "---  array of animals created ---" << std::endl;
 
     for (int i = 0; i < 10; i++){
-        if (i % 2 == 0)
-            meta[i] = new Dog();
+        if (i < 5)
+            animal[i] = new Dog();
         else
-            meta[i] = new Cat();
+            animal[i] = new Cat();
     }
 
     for (int i = 0; i < 10; i++){
-        meta[i]->makeSound();
+        animal[i]->makeSound();
     }
-    delete[] meta;
+
+    for (int i = 0; i < 10; i++){
+        delete animal[i];
+    }
 
     return 0;
 }

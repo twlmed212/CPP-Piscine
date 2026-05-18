@@ -23,6 +23,8 @@ Brain::Brain(const Brain& other) {
 Brain& Brain::operator=(const Brain& other) {
     std::cout << "Brain assignmet operator called." << std::endl;
     if (this != &other) {
+        if (this->ideas)
+            delete[] this->ideas;// i need to test this.. 
         ideas = new std::string[100];
         for (int i = 0; i < 100; i++){
             this->ideas[i] = other.ideas[i];
