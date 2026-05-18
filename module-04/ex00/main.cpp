@@ -14,9 +14,9 @@ int main()
     std::cout << j->getType() << std::endl;
     std::cout << i->getType() << std::endl;
 
-    i->makeSound();    // Cat sound
-    j->makeSound();    // Dog sound
-    meta->makeSound(); // Animal sound
+    i->makeSound();
+    j->makeSound();
+    meta->makeSound();
 
     delete i;
     delete j;

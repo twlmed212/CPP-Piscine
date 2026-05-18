@@ -26,5 +26,22 @@ int main()
         delete animal[i];
     }
 
+    std::cout << "\n--- Deep Copy Test ---" << std::endl;
+    Dog dog1;
+    dog1.getBrain()->setIdea(0, "I want to play");
+    std::cout << "Dog1: " << dog1.getBrain()->getIdeas()[0] << std::endl;
+    std::cout << "\n--------------------" << std::endl;
+
+    Dog dog2(dog1);
+    dog2.getBrain()->setIdea(0, "I want to eat");
+    std::cout << "Dog2: " << dog2.getBrain()->getIdeas()[0] << std::endl;
+    std::cout << "\n--------------------" << std::endl;
+
+    Dog dog3;
+    dog3 = dog1;
+    dog3.getBrain()->setIdea(0, "I want to dance");
+    std::cout << "Dog3: " << dog3.getBrain()->getIdeas()[0] << std::endl;
+    std::cout << "\n--------------------" << std::endl;
+
     return 0;
 }

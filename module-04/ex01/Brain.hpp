@@ -11,6 +11,9 @@ public:
     ~Brain();
     Brain(const Brain& other);
     Brain& operator=(const Brain& other);
+
+    std::string* getIdeas() const;
+    void setIdea(int index, const std::string& idea);
 };
 
 #endif
