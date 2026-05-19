@@ -1,4 +1,6 @@
 #include "Ice.hpp"
+#include "ICharacter.hpp"
+
 // Implementation
 Ice::Ice() : AMateria("ice") {
     // Default constructor
@@ -14,9 +16,7 @@ Ice::Ice(const Ice& other) : AMateria(other) {
 
 Ice& Ice::operator=(const Ice& other) {
     // Copy assignment
-    if (this != &other) {
-        // Copy logic
-    }
+    (void)other;
     return *this;
 }
 

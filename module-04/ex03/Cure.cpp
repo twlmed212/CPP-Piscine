@@ -1,4 +1,5 @@
 #include "Cure.hpp"
+#include "ICharacter.hpp"
 
 Cure::Cure() : AMateria("cure") {
     // Default constructor
@@ -14,9 +15,7 @@ Cure::Cure(const Cure& other) : AMateria(other) {
 
 Cure& Cure::operator=(const Cure& other) {
     // Copy assignment
-    if (this != &other) {
-        // Copy logic
-    }
+    (void)other;
     return *this;
 }
 

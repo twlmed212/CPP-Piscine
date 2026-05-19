@@ -1,5 +1,5 @@
 #include "AMateria.hpp"
-
+#include "ICharacter.hpp"
 
 AMateria::AMateria() {
     // Default constructor
@@ -26,9 +26,7 @@ AMateria& AMateria::operator=(const AMateria& other) {
     return *this;
 }
 
-void AMateria::use(ICharacter& target) {
-    
-}
+
 std::string const & AMateria::getType() const {
     return type;
 }
