@@ -26,9 +26,6 @@ AMateria& AMateria::operator=(const AMateria& other) {
     return *this;
 }
 
-AMateria* AMateria::clone() const {
-    return new AMateria(*this);
-}
 void AMateria::use(ICharacter& target) {
     
 }

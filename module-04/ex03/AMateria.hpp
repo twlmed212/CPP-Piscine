@@ -7,7 +7,6 @@
 class AMateria {
     protected:
         std::string type;
-        // Member variables
     public:
         AMateria();
         AMateria(std::string const & type);
@@ -15,7 +14,7 @@ class AMateria {
         AMateria& operator=(const AMateria& other);
         ~AMateria();
 
-        virtual AMateria* clone() const;
+        virtual AMateria* clone() const = 0;
         virtual void use(ICharacter& target);
         std::string const & getType() const;
 
