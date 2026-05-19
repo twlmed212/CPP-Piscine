@@ -9,7 +9,7 @@ class Character : public ICharacter {
     private:
         std::string name;
         AMateria* inventory[4];
-        AMateria* floor[4];
+        AMateria* floor[16];
         int floorCount;
 
     public:
