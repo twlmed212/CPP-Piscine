@@ -2,11 +2,10 @@
 
 # include <iostream>
 
-Bureaucrat::Bureaucrat(): name("Guest"), grade (0){
-    std::cout << "TEST";
+Bureaucrat::Bureaucrat(): name("Guest"), grade (1){
 }
 
-Bureaucrat::Bureaucrat(std::string nm, 
+Bureaucrat::Bureaucrat(const std::string& nm, 
                         int grd) : name(nm), grade (grd){}
 
 Bureaucrat::~Bureaucrat(){
@@ -32,18 +31,25 @@ int Bureaucrat::getGrade() const{
     return grade;
 }
 
-void Bureaucrat::increamentGrade(){
+const char*  Bureaucrat::GradeTooHighException::what() const throw() {
+    return ("Grade is too high\n");
+}
+
+const char*  Bureaucrat::GradeTooLowException::what() const throw() {
+    return ("Grade is too low\n");
+}
+
+
+void Bureaucrat::incrementGrade(){
     if (grade == 1) {
-        throw Bureaucrat::GradeTooHighException;
+        throw Bureaucrat::GradeTooHighException();
     }
     --grade;
-    // success increment
 }
 
 void Bureaucrat::decrementGrade(){
     if (grade == 150) {
-        throw Bureaucrat::GradeTooLowException;
+        throw Bureaucrat::GradeTooLowException();
     }
     ++grade;
-    // success decrement
 }
