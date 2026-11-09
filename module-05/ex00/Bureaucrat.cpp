@@ -34,7 +34,7 @@ int Bureaucrat::getGrade() const{
 
 void Bureaucrat::increamentGrade(){
     if (grade == 1) {
-        throw "Error the grade cant be negative";
+        throw Bureaucrat::GradeTooHighException;
     }
     --grade;
     // success increment
@@ -42,7 +42,7 @@ void Bureaucrat::increamentGrade(){
 
 void Bureaucrat::decrementGrade(){
     if (grade == 150) {
-        throw "Error the grade cant be more than 150";
+        throw Bureaucrat::GradeTooLowException;
     }
     ++grade;
     // success decrement
