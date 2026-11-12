@@ -43,8 +43,9 @@ const std::string& Form::getName() const{
     return name;
 }
 
-bool Form::getIsSigned() const{
-    return isSigned;
+std::string Form::getIsSigned() const{
+
+    return isSigned ? "Yes" : "No";
 }
 
 int Form::getMinGradeToSign() const {
@@ -56,7 +57,12 @@ int Form::getMinGradeToExecute() const {
 }
 
 std::ostream& operator<<(std::ostream& out, const Form& form) {
-    out << form.getName() << " (Signed: " << form.getIsSigned() << ", Min Grade to Sign: " << form.getMinGradeToSign() << ", Min Grade to Execute: " << form.getMinGradeToExecute() << ")";
+    out << form.getName() << " (Signed: " 
+        << form.getIsSigned() 
+        << ", Grade required to Sign: " 
+        << form.getMinGradeToSign() 
+        << ", Min Grade to Execute: " 
+        << form.getMinGradeToExecute() << ")";
     return out;
 }
 
