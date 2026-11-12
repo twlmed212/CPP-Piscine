@@ -3,7 +3,9 @@
 
 # include <string>
 # include <iostream>
-# include "Bureaucrat.hpp"
+# include <exception>
+
+class Bureaucrat;
 
 class Form {
     private:
@@ -14,12 +16,12 @@ class Form {
         
     public:
         Form();
-        Form(const std::string& n, int &minExecute, int& minGrade);
+        Form(const std::string& n, int gradeToSign, int gradeToExecute);
         ~Form();
         Form(const Form& other);
         Form& operator=(const Form& other);
 
-        void beSigned(Bureaucrat& bureaucrat);
+        void beSigned(const Bureaucrat& bureaucrat);
         const std::string& getName() const;
         bool getIsSigned() const;
         int getMinGradeToSign() const;

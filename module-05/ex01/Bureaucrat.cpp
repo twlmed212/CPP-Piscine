@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 # include <iostream>
 
@@ -74,7 +75,13 @@ void Bureaucrat::decrementGrade(){
 void Bureaucrat::signForm(Form& form) {
     try {
         form.beSigned(*this);
-    }catch(std::exception& e){
-        std::cout << e.what() << std::endl;
+        std::cout << this->name
+                << " signed " << form.getName() << "."
+                << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << this->name
+                << " couldn't sign " << form.getName()
+                << " because " << e.what() << "."
+                << std::endl;
     }
 }

@@ -4,11 +4,8 @@
 # include <string>
 # include <iostream>
 # include <exception>
-# include <Form.hpp>
 
-class x {
-
-};
+class Form;
 
 class Bureaucrat {
     private:

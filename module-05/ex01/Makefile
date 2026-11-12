@@ -3,8 +3,8 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = BUREAUCRAT
 
-SRC = main.cpp Bureaucrat.cpp
-HEADERS = Bureaucrat.hpp
+SRC = main.cpp Bureaucrat.cpp Form.cpp
+HEADERS = Bureaucrat.hpp Form.hpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
