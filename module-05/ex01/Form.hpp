@@ -10,9 +10,9 @@ class Bureaucrat;
 class Form {
     private:
         const std::string name;
-        bool isSigned;
-        const int minGradeToExecute;
         const int minGradeToSign;
+        const int minGradeToExecute;
+        bool isSigned;
         
     public:
         Form();
@@ -23,7 +23,7 @@ class Form {
 
         void beSigned(const Bureaucrat& bureaucrat);
         const std::string& getName() const;
-        std::string getIsSigned() const;
+        bool getIsSigned() const;
         int getMinGradeToSign() const;
         int getMinGradeToExecute() const;
 

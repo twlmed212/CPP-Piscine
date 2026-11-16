@@ -1,13 +1,12 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-Form::Form(): name("Guest"), isSigned(false),
-             minGradeToExecute(50), minGradeToSign(50) {
+Form::Form(): name("Guest"), minGradeToSign(50),
+            minGradeToExecute(50), isSigned(false) {
 }
 
 Form::Form(const std::string& n, int gradeToSign, int gradeToExecute)
-            : name(n), isSigned(false), minGradeToExecute(gradeToExecute), 
-            minGradeToSign(gradeToSign){
+            : name(n),  minGradeToSign(gradeToSign), minGradeToExecute(gradeToExecute), isSigned(false){
     if (gradeToSign < 1 || gradeToExecute < 1) {
         throw GradeTooHighException();
     }
@@ -19,8 +18,8 @@ Form::Form(const std::string& n, int gradeToSign, int gradeToExecute)
 Form::~Form() {
 }
 
-Form::Form(const Form& other) : name(other.name), isSigned(other.isSigned),
-             minGradeToExecute(other.minGradeToExecute), minGradeToSign(other.minGradeToSign){
+Form::Form(const Form& other) : name(other.name), minGradeToSign(other.minGradeToSign),
+                                minGradeToExecute(other.minGradeToExecute), isSigned(other.isSigned){
 }
 
 Form& Form::operator=(const Form& other){
@@ -43,9 +42,9 @@ const std::string& Form::getName() const{
     return name;
 }
 
-std::string Form::getIsSigned() const{
+bool Form::getIsSigned() const{
 
-    return isSigned ? "Yes" : "No";
+    return isSigned;
 }
 
 int Form::getMinGradeToSign() const {
@@ -58,7 +57,7 @@ int Form::getMinGradeToExecute() const {
 
 std::ostream& operator<<(std::ostream& out, const Form& form) {
     out << form.getName() << " (Signed: " 
-        << form.getIsSigned() 
+        << (form.getIsSigned() ? "Yes" : "No")
         << ", Grade required to Sign: " 
         << form.getMinGradeToSign() 
         << ", Min Grade to Execute: " 
