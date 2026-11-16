@@ -1,4 +1,5 @@
 #include "RobotomyRequestForm.hpp"
+#include <cstdlib>
 
 RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", "Guest", 72, 45) {
 }
@@ -19,14 +20,7 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& o
     return *this;
 }
 
-void RobotomyRequestForm::execute(const Bureaucrat& executor) const {
-    if (!getIsSigned()) {
-        throw AForm::GradeTooLowException();
-    }
-    if (executor.getGrade() > getMinGradeToExecute()) {
-        throw AForm::GradeTooLowException();
-    }
-
+void RobotomyRequestForm::executeAction() const {
     std::cout << "Drilling noises..." << std::endl;
     if (rand() % 2 == 0) {
         std::cout << getTarget() << " has been robotomized successfully!" << std::endl;

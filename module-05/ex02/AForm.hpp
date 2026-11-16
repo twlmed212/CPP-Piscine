@@ -14,6 +14,7 @@ class AForm {
         const int minGradeToSign;
         const int minGradeToExecute;
         bool isSigned;
+        virtual void executeAction() const = 0;
     
     public:
         AForm();
@@ -29,13 +30,18 @@ class AForm {
         int getMinGradeToExecute() const;
         const std::string& getTarget() const;
 
-        virtual void execute(const Bureaucrat& executor) const = 0;
+        void execute(const Bureaucrat& executor) const;
         class GradeTooHighException : public std::exception {
             public:
                 const char* what() const throw();
         };
 
         class GradeTooLowException : public std::exception {
+            public:
+                const char* what() const throw();
+        };
+
+        class FormNotSignedException : public std::exception {
             public:
                 const char* what() const throw();
         };

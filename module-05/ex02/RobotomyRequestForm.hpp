@@ -3,8 +3,6 @@
 #define ROBOTOMYREQUESTFORM_HPP
 
 # include "AForm.hpp"
-# include "Bureaucrat.hpp"
-# include <cstdlib>
 
 class RobotomyRequestForm : public AForm {
 
@@ -15,7 +13,9 @@ public:
     RobotomyRequestForm(const RobotomyRequestForm& other);
     RobotomyRequestForm& operator=(const RobotomyRequestForm& other);
 
-    void execute(const Bureaucrat& executor) const;
+private:
+    void executeAction() const;
+
 };
 
 #endif

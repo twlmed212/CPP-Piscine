@@ -1,10 +1,9 @@
-#include "Bureaucrat.hpp"
 #include "AForm.hpp"
+#include "Bureaucrat.hpp"
 
 AForm::AForm(): name("Guest"), target("Guest"),
         minGradeToSign(50), minGradeToExecute(50), isSigned(false){
 }
-//        AForm(const std::string& n, const std::string& target, const int gradeToSign, const int gradeToExecute);
 
 AForm::AForm(const std::string& n, const std::string& target,
             const int gradeToSign, const int gradeToExecute)
@@ -68,7 +67,7 @@ std::ostream& operator<<(std::ostream& out, const AForm& Aform) {
         << (Aform.getIsSigned() ? "Yes" : "No")
         << ", Grade required to Sign: " 
         << Aform.getMinGradeToSign() 
-        << ", Min Grade to Execute: " 
+        << ", Grade required to Execute: " 
         << Aform.getMinGradeToExecute() << ")";
     return out;
 }
@@ -81,3 +80,18 @@ const char* AForm::GradeTooHighException::what() const throw(){
 const char* AForm::GradeTooLowException::what() const throw(){
     return ("Grade is too low");
 }
+
+const char* AForm::FormNotSignedException::what() const throw() {
+    return ("Form is not signed");
+}
+
+void AForm::execute(const Bureaucrat& executor) const {
+    if (!getIsSigned()) {
+        throw FormNotSignedException();
+    }
+    if (executor.getGrade() > getMinGradeToExecute()) {
+        throw GradeTooLowException();
+    }
+    executeAction();
+}
+

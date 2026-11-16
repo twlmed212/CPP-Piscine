@@ -1,10 +1,11 @@
 #include "ShrubberyCreationForm.hpp"
+#include <fstream>
 
 ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", "default", 145, 137) {
 
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) : AForm(target, target, 145, 137) {
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) : AForm("ShrubberyCreationForm", target, 145, 137) {
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {
@@ -20,18 +21,10 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
     return *this;
 }
 
-void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
-    if (!getIsSigned()) {
-        throw AForm::GradeTooLowException();
-    }
-    if (executor.getGrade() > getMinGradeToExecute()) {
-        throw AForm::GradeTooLowException();
-    }
-
+void ShrubberyCreationForm::executeAction() const {
     std::ofstream outfile((getTarget() + "_shrubbery").c_str());
     if (!outfile) {
-        std::cerr << "Error creating file." << std::endl;
-        return;
+        throw FileCreationException();
     }
     outfile << "          # #### ####" << std::endl;
     outfile << "        ### \\/#|### |/####" << std::endl;
@@ -48,4 +41,7 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
     outfile << "              {{}" << std::endl;
 
     outfile.close();
+}
+const char* ShrubberyCreationForm::FileCreationException::what() const throw() {
+    return ("Error creating file");
 }
