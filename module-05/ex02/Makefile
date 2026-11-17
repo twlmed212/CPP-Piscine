@@ -11,6 +11,7 @@ HEADERS = AForm.hpp Bureaucrat.hpp \
 		PresidentialPardonForm.hpp RobotomyRequestForm.hpp \
 		ShrubberyCreationForm.hpp
 OBJ = $(SRC:.cpp=.o)
+GenFiles = $(wildcard *_shrubbery)
 
 all: $(NAME)
 
@@ -21,7 +22,7 @@ $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(GenFiles)
 
 fclean: clean
 	rm -f $(NAME)
