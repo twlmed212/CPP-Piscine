@@ -5,10 +5,6 @@
 # include <iostream>
 # include <exception>
 
-class x {
-
-};
-
 class Bureaucrat {
     private:
         const std::string name;

@@ -60,7 +60,7 @@ std::ostream& operator<<(std::ostream& out, const Form& form) {
         << (form.getIsSigned() ? "Yes" : "No")
         << ", Grade required to Sign: " 
         << form.getMinGradeToSign() 
-        << ", Min Grade to Execute: " 
+        << ", Grade required to Execute: " 
         << form.getMinGradeToExecute() << ")";
     return out;
 }

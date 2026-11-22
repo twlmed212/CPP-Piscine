@@ -7,109 +7,99 @@
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
 
-static void title(const std::string& text)
-{
-    std::cout << std::endl << "===== " << text << " =====" << std::endl;
-}
-
 int main()
 {
     srand(time(NULL));
 
-    /* ---------------- SHRUBBERY (sign 145 / exec 137) ---------------- */
-    title("1. Shrubbery: execute before signing");
+    std::cout << std::endl << "Youssef (grade 137) tries to execute a form that is not signed" << std::endl;
     try {
         ShrubberyCreationForm shrub("home");
-        Bureaucrat gardener("Gardener", 137);
-        gardener.executeForm(shrub);
+        Bureaucrat youssef("Youssef", 137);
+        youssef.executeForm(shrub);
     } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;
     }
 
-    title("2. Shrubbery: sign + execute with grade 137 (exact edge)");
+    std::cout << std::endl << "Youssef (grade 137) signs and executes the shrubbery form" << std::endl;
     try {
         ShrubberyCreationForm shrub("home");
-        Bureaucrat gardener("Gardener", 137);
-        gardener.signForm(shrub);
-        gardener.executeForm(shrub);
-        std::cout << "-> check the file home_shrubbery" << std::endl;
+        Bureaucrat youssef("Youssef", 137);
+        youssef.signForm(shrub);
+        youssef.executeForm(shrub);
+        std::cout << "Check the file home_shrubbery" << std::endl;
     } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;
     }
 
-    title("3. Shrubbery: signed, but executor grade 138");
+    std::cout << std::endl << "Fatima (grade 145) signs, Omar (grade 138) cannot execute" << std::endl;
     try {
         ShrubberyCreationForm shrub("garden");
-        Bureaucrat signer("Signer", 145);
-        Bureaucrat intern("Intern", 138);
-        signer.signForm(shrub);
-        intern.executeForm(shrub);
+        Bureaucrat fatima("Fatima", 145);
+        Bureaucrat omar("Omar", 138);
+        fatima.signForm(shrub);
+        omar.executeForm(shrub);
     } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;
     }
 
-    /* ---------------- ROBOTOMY (sign 72 / exec 45) ---------------- */
-    title("4. Robotomy: sign + execute 5 times (about 50% success)");
+    std::cout << std::endl << "Karim (grade 45) robotomizes Hamza 5 times (works about half the time)" << std::endl;
     try {
-        RobotomyRequestForm robot("Bender");
-        Bureaucrat doctor("Doctor", 45);
-        doctor.signForm(robot);
+        RobotomyRequestForm robot("Hamza");
+        Bureaucrat karim("Karim", 45);
+        karim.signForm(robot);
         for (int i = 0; i < 5; i++)
-            doctor.executeForm(robot);
+            karim.executeForm(robot);
     } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;
     }
 
-    /* ---------------- PRESIDENTIAL PARDON (sign 25 / exec 5) ---------------- */
-    title("5. Pardon: signer grade 26");
+    std::cout << std::endl << "Nadia (grade 26) tries to sign a pardon that needs grade 25" << std::endl;
     try {
-        PresidentialPardonForm pardon("Arthur");
-        Bureaucrat clerk("Clerk", 26);
-        clerk.signForm(pardon);
+        PresidentialPardonForm pardon("Rachid");
+        Bureaucrat nadia("Nadia", 26);
+        nadia.signForm(pardon);
     } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;
     }
 
-    title("6 & 7. Pardon: grade 25 signs, grade 6 fails, grade 5 executes");
+    std::cout << std::endl << "Khadija (25) signs, Hassan (6) cannot execute, Driss (5) can" << std::endl;
     try {
-        PresidentialPardonForm pardon("Arthur");
-        Bureaucrat minister("Minister", 25);
-        Bureaucrat advisor("Advisor", 6);
-        Bureaucrat president("President", 5);
-        minister.signForm(pardon);
-        advisor.executeForm(pardon);
-        president.executeForm(pardon);
+        PresidentialPardonForm pardon("Rachid");
+        Bureaucrat khadija("Khadija", 25);
+        Bureaucrat hassan("Hassan", 6);
+        Bureaucrat driss("Driss", 5);
+        khadija.signForm(pardon);
+        hassan.executeForm(pardon);
+        driss.executeForm(pardon);
     } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;
     }
 
-    /* ---------------- POLYMORPHISM ---------------- */
-    title("8. Polymorphism: one AForm* for every kind of form");
+    std::cout << std::endl << "Mohamed (grade 1) handles every kind of form through AForm*" << std::endl;
     try {
         ShrubberyCreationForm  shrub("office");
-        RobotomyRequestForm    robot("Marvin");
-        PresidentialPardonForm pardon("Ford");
+        RobotomyRequestForm    robot("Amine");
+        PresidentialPardonForm pardon("Zineb");
         AForm* forms[3] = { &shrub, &robot, &pardon };
-        Bureaucrat boss("Boss", 1);
+        Bureaucrat mohamed("Mohamed", 1);
 
         for (int i = 0; i < 3; i++) {
             std::cout << *forms[i] << std::endl;
-            boss.signForm(*forms[i]);
-            boss.executeForm(*forms[i]);
+            mohamed.signForm(*forms[i]);
+            mohamed.executeForm(*forms[i]);
         }
     } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;
     }
 
-    /* ---------------- OCF of a concrete form ---------------- */
-    title("9. Copy constructor keeps the signed status");
+    std::cout << std::endl << "A copy of a signed form stays signed" << std::endl;
     try {
-        RobotomyRequestForm original("R2D2");
-        Bureaucrat boss("Boss", 1);
-        boss.signForm(original);
+        RobotomyRequestForm original("Salma");
+        Bureaucrat mohamed("Mohamed", 1);
+        mohamed.signForm(original);
         RobotomyRequestForm copy(original);
-        std::cout << "original: " << original << std::endl;
-        std::cout << "copy:     " << copy << std::endl;
+        std::cout << "Original: " << original << std::endl;
+        std::cout << "Copy:     " << copy << std::endl;
     } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;
     }

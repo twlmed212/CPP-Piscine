@@ -1,97 +1,67 @@
+
+#include "Intern.hpp"
+#include <iostream>
 #include "AForm.hpp"
-#include "Bureaucrat.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
-AForm::AForm(): name("Guest"), target("Guest"),
-        minGradeToSign(50), minGradeToExecute(50), isSigned(false){
+
+Intern::Intern(){
 }
 
-AForm::AForm(const std::string& n, const std::string& target,
-            const int gradeToSign, const int gradeToExecute)
-            : name(n), target(target), minGradeToSign(gradeToSign), 
-            minGradeToExecute(gradeToExecute), isSigned(false) {
-    if (gradeToSign < 1 || gradeToExecute < 1) {
-        throw GradeTooHighException();
-    }
-    if (gradeToSign > 150 || gradeToExecute > 150){
-        throw GradeTooLowException();
-    }
+Intern::~Intern() {
 }
 
-AForm::~AForm() {
+Intern::Intern(const Intern& other){
+    (void)other;
 }
 
-AForm::AForm(const AForm& other) : name(other.name), target(other.target), 
-        minGradeToSign(other.minGradeToSign), minGradeToExecute(other.minGradeToExecute),
-        isSigned(other.isSigned) {
-}
-
-AForm& AForm::operator=(const AForm& other){
-    if (this != &other){
-        isSigned = other.isSigned;
-    }
+Intern& Intern::operator=(const Intern& other){
+    (void)other;
     return *this;
 }
 
-void AForm::beSigned(const Bureaucrat& bureaucrat) {
-   
-    if (bureaucrat.getGrade() <= this->getMinGradeToSign()){
-        isSigned = true;
-    }else{
-       throw GradeTooLowException();
+AForm* Intern::makeForm(const std::string& name, const std::string& target) const
+{
+    const int count = 3;
+
+    const std::string names[count] = {
+        "shrubbery creation",
+        "robotomy request",
+        "presidential pardon"
+    };
+
+    AForm* (Intern::*creators[count])(const std::string&) const = {
+        &Intern::createShrubbery,
+        &Intern::createRobotomy,
+        &Intern::createPardon
+    };
+
+    for (int i = 0; i < count; i++) {
+        if (names[i] == name) {
+            AForm* form = (this->*creators[i])(target);
+            std::cout << "Intern creates " << form->getName() << std::endl;
+            return form;
+        }
     }
+    std::cout << "Intern couldn't create \"" << name
+              << "\": unknown form name" << std::endl;
+    throw UnknownFormException();
 }
 
-const std::string& AForm::getName() const{
-    return name;
+AForm* Intern::createRobotomy(const std::string& target) const {
+    return new RobotomyRequestForm(target);
 }
 
-bool AForm::getIsSigned() const{
-
-    return isSigned;
+AForm* Intern::createShrubbery(const std::string& target) const {
+    return new ShrubberyCreationForm(target);
 }
 
-int AForm::getMinGradeToSign() const {
-    return minGradeToSign;
+AForm* Intern::createPardon(const std::string& target) const {
+    return new PresidentialPardonForm(target);
 }
 
-int AForm::getMinGradeToExecute() const {
-    return minGradeToExecute;
+const char* Intern::UnknownFormException::what() const throw() {
+    return "Intern: Unknown form name";
 }
-
-const std::string& AForm::getTarget() const {
-    return target;
-}
-
-std::ostream& operator<<(std::ostream& out, const AForm& Aform) {
-    out << Aform.getName() << " (Signed: " 
-        << (Aform.getIsSigned() ? "Yes" : "No")
-        << ", Grade required to Sign: " 
-        << Aform.getMinGradeToSign() 
-        << ", Grade required to Execute: " 
-        << Aform.getMinGradeToExecute() << ")";
-    return out;
-}
-
-const char* AForm::GradeTooHighException::what() const throw(){
-    return ("Grade is too high");
-}
-
-
-const char* AForm::GradeTooLowException::what() const throw(){
-    return ("Grade is too low");
-}
-
-const char* AForm::FormNotSignedException::what() const throw() {
-    return ("Form is not signed");
-}
-
-void AForm::execute(const Bureaucrat& executor) const {
-    if (!getIsSigned()) {
-        throw FormNotSignedException();
-    }
-    if (executor.getGrade() > getMinGradeToExecute()) {
-        throw GradeTooLowException();
-    }
-    executeAction();
-}
-
