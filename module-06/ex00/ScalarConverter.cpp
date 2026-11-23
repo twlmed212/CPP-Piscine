@@ -2,6 +2,7 @@
 #include <cctype>
 #include <iomanip>
 #include <climits>
+#include <cmath>
 
 enum e_type { CHAR, INT, FLOAT, DOUBLE, PSEUDO_FLOAT, PSEUDO_DOUBLE, INVALID };
 
@@ -133,6 +134,22 @@ static void printInt(double d) {
     else
         std::cout << static_cast<int>(d);
     std::cout << std::endl;
+}
+
+static void printNum(double v, const char* suffix){
+    if (v != v){
+        std::cout << "nan" << suffix;
+        return;
+    }
+    if (v == HUGE_VAL || v == -HUGE_VAL) {
+        std::cout << (v > 0 ? "+inf" : "-inf") << suffix;
+        return; 
+    }
+    std::cout << v;
+    if (v == std::floor(v) && std::fabs(v) < 1e6){
+        std::cout << ".0";
+    }
+    std::cout << suffix;
 }
 
 void ScalarConverter::convert(const std::string& literal){
