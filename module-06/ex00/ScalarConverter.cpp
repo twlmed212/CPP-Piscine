@@ -1,204 +1,139 @@
 #include "ScalarConverter.hpp"
+#include <iostream>
+#include <cstdlib>
 #include <cctype>
-#include <iomanip>
 #include <climits>
+#include <cfloat>
 #include <cmath>
 
-enum e_type { CHAR, INT, FLOAT, DOUBLE, PSEUDO_FLOAT, PSEUDO_DOUBLE, INVALID };
-
-
 ScalarConverter::ScalarConverter(){
-}
 
-
-ScalarConverter::~ScalarConverter(){
 }
 ScalarConverter::ScalarConverter(const ScalarConverter& other){
-    (void) other;
-
+    (void)other;
 }
 ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other){
-    if (this != &other){
-    }
+    (void)other;
     return *this;
 }
+ScalarConverter::~ScalarConverter(){}
 
-static bool isInt(const std::string& value) {
-    if (value.empty())
-        return false;
-
-    std::size_t i = 0;
-    if (value[0] == '+' || value[0] == '-')
+static bool is_int(const std::string& str)
+{
+    size_t i = 0;
+    if (!str.empty() && (str.at(0) == '-' || str.at(0) == '+'))
         i++;
-
-    if (i == value.length())
+    if (i == str.length())
         return false;
-
-    for (; i < value.length(); ++i) {
-        if (!std::isdigit(static_cast<unsigned char>(value[i])))
+    for (; i < str.length(); i++)
+        if (!std::isdigit(static_cast<unsigned char>(str[i])))
             return false;
-    }
-
     return true;
 }
 
-static bool isChar(const std::string& value){
-    if (value.empty() || isInt(value))
+static bool is_char(const std::string& str)
+{
+    if (str.length() != 1)
         return false;
-    if (value.length() == 1 && std::isprint(static_cast<unsigned char>(value.at(0)))){
-        return true;
-    }
-    return false;
+    bool isPrinatable = std::isprint(static_cast<unsigned char>(str[0]));
+    bool isDigit = std::isdigit(static_cast<unsigned char>(str[0]));
+    return (isPrinatable && !isDigit);
 }
 
-static bool isDouble(const std::string& value) {
-    if (value.empty())
+static bool is_double(const std::string& str)
+{
+    size_t dot = str.find('.');
+    if (dot == std::string::npos)
         return false;
-
-    unsigned long i = 0;
-    bool dot = false;
-    bool digitBefore = false;
-    bool digitAfter = false;
-
-    if (value[i] == '+' || value[i] == '-') {
-        i++;
-    }
-
-    for (; i < value.length(); i++) {
-        unsigned char c = static_cast<unsigned char>(value[i]);
-
-        if (std::isdigit(c) && !dot) {
-            digitBefore = true;
-        }
-        else if (std::isdigit(c) && dot) {
-            digitAfter = true;
-        }
-        else if (c == '.' && !dot) {
-            dot = true;
-        }
-        else {
-            return false;
-        }
-    }
-    return dot && digitAfter && digitBefore;
+    std::string after = str.substr(dot + 1);
+    return is_int(str.substr(0, dot)) && is_int(after)
+        && std::isdigit(static_cast<unsigned char>(after[0]));
 }
 
-static bool isFloat(const std::string& value) {
-    if (value.empty() || value[value.length() - 1] != 'f')
-        return false;
-
-    std::string str = value.substr(0, value.length() - 1);
-
-    return isDouble(str);
+static bool is_float(const std::string& str)
+{
+    return !str.empty() && str[str.length() - 1] == 'f'
+        && is_double(str.substr(0, str.length() - 1));
 }
 
-static bool isPseudoFloat(const std::string& s) {
-    return s == "nanf" || s == "-inff" || s == "inff" || s == "+inff";
+static void print_num(double v, const char* suffix)
+{
+    std::cout << v << (v == std::floor(v) && std::fabs(v) < 1e6 ? ".0" : "")
+              << suffix << std::endl;
 }
 
-static bool isPseudoDouble(const std::string& s) {
-    return s == "nan" || s == "-inf" || s == "inf" || s == "+inf";
-}
-
-static e_type detectType(const std::string& s) {
-    if (isPseudoFloat(s))
-        return PSEUDO_FLOAT;
-    if (isPseudoDouble(s))
-        return PSEUDO_DOUBLE;
-    if (isInt(s))
-        return INT;
-    if (isChar(s))
-        return CHAR;
-    if (isDouble(s))
-        return DOUBLE;
-    if (isFloat(s))
-        return FLOAT;
-    return INVALID;
-}
-
-static void printChar(double d){
+static void print_char(double res)
+{
     std::cout << "char: ";
-    if (d != d || d < 0 || d > 127)
-        std::cout << "impossible";
-    else if (!std::isprint(static_cast<int>(d)))
-        std::cout << "Non displayable";
+    if (res != res || res < 0 || res > 127)
+        std::cout << "impossible" << std::endl;
+    else if (!std::isprint(static_cast<int>(res)))
+        std::cout << "Non displayable" << std::endl;
     else
-        std::cout << "'" << static_cast<char>(d) << "'";
-    std::cout << std::endl;
+        std::cout << "'" << static_cast<char>(res) << "'" << std::endl;
 }
 
-static void printInt(double d) {
+static void print_int(double res)
+{
     std::cout << "int: ";
-    if (d != d || d < INT_MIN || d > INT_MAX)
-        std::cout << "impossible";
+    if (res != res || res > INT_MAX || res < INT_MIN)
+        std::cout << "impossible" << std::endl;
     else
-        std::cout << static_cast<int>(d);
-    std::cout << std::endl;
+        std::cout << static_cast<int>(res) << std::endl;
 }
 
-static void printNum(double v, const char* suffix){
-    if (v != v){
-        std::cout << "nan" << suffix;
-        return;
-    }
-    if (v == HUGE_VAL || v == -HUGE_VAL) {
-        std::cout << (v > 0 ? "+inf" : "-inf") << suffix;
-        return; 
-    }
-    std::cout << v;
-    if (v == std::floor(v) && std::fabs(v) < 1e6){
-        std::cout << ".0";
-    }
-    std::cout << suffix;
+static void print_float(double res)
+{
+    std::cout << "float: ";
+    if (res > FLT_MAX || res < -FLT_MAX)
+        std::cout << "impossible" << std::endl;
+    else
+        print_num(static_cast<float>(res), "f");
 }
 
-void ScalarConverter::convert(const std::string& literal){
-    switch (detectType(literal))
+static void print_double(double res)
+{
+    std::cout << "double: ";
+    print_num(res, "");
+}
+
+static void special_case(const std::string& str)
+{
+    std::string d = str;
+    if (str == "nanf" || str == "+inff" || str == "-inff")
+        d = str.substr(0, str.length() - 1);
+    std::cout << "char: impossible" << std::endl
+              << "int: impossible" << std::endl
+              << "float: " << d << "f" << std::endl
+              << "double: " << d << std::endl;
+}
+
+void ScalarConverter::convert(const std::string& str)
+{
+    double res;
+
+    if (str == "nan" || str == "nanf" || str == "+inf" || str == "+inff"
+        || str == "-inf" || str == "-inff")
     {
-    case CHAR: {
-        char   c = literal[0];
-        int    i = static_cast<int>(c);
-        float  f = static_cast<float>(c);
-        double d = static_cast<double>(c);
-
-        std::cout << "char: '" << c << "'" << std::endl;
-        std::cout << "int: " << i << std::endl;
-        std::cout << std::fixed << std::setprecision(1);
-        std::cout << "float: " << f  << "f" << std::endl;
-        std::cout << "double: " << d << std::endl;
-        break;
+        special_case(str);
+        return ;
     }
-    case INT:
-        std::cout << "Type is int" << std::endl;
-        break;
-    case FLOAT: {
-        float  f = static_cast<float>(literal);
-        int    i = static_cast<int>(c);
-        double d = static_cast<double>(c);
-        char   c = literal[0];
-
-        std::cout << "char: '" << c << "'" << std::endl;
-        std::cout << "int: " << i << std::endl;
-        std::cout << std::fixed << std::setprecision(1);
-        std::cout << "float: " << f  << "f" << std::endl;
-        std::cout << "double: " << d << std::endl;
-        break;
+    if (is_char(str))
+        res = static_cast<double>(str[0]);
+    else if (is_int(str) || is_double(str))
+        res = std::strtod(str.c_str(), NULL);
+    else if (is_float(str))
+        res = static_cast<float>(std::strtod(str.c_str(), NULL));
+    else
+    {
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+        std::cout << "float: impossible" << std::endl;
+        std::cout << "double: impossible" << std::endl;
+        return ;
     }
-    case DOUBLE:
-        std::cout << "Type is double" << std::endl;
-        break;
-    case PSEUDO_DOUBLE:
-        std::cout << "Type is pseudo double" << std::endl;
-        break;
-    case PSEUDO_FLOAT:
-        std::cout << "Type is pseudo float" << std::endl;
-        break;
-    case INVALID:
-        std::cout << "Type is invalid" << std::endl;
-        break;
-    default:
-        std::cout << "Type is nothing" << std::endl;
-
-        break;
-    }
+    print_char(res);
+    print_int(res);
+    print_float(res);
+    print_double(res);
 }
